@@ -6,14 +6,11 @@
 //
 
 import SwiftUI
-import Metal
 import MetalKit
 import Foundation
 
 let device = MTLCreateSystemDefaultDevice()!
 let textureLoader = MTKTextureLoader(device: device)
-let colorRemove = ColorRemoveModule()
-
 
 struct ContentView: View {
     static let imageWidth: Int = 400
@@ -31,6 +28,7 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: CGFloat(Self.imageWidth), height: CGFloat(Self.imageHeight), alignment: .center)
                     .padding()
+                
                 Image(nsImage: self.convertedImage ?? Self.emptyPlaceholder)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -73,22 +71,32 @@ struct ContentView: View {
     func onConvertButtonClick() {
         let width: Int = Int(self.originalImage!.size.width)
         let height: Int = Int(self.originalImage!.size.height)
+        let imageData = NSData(data: self.originalImage!.tiffRepresentation!)
+            
         
+        // Create input texture
+        // We assume the image pixel format is rgba8, which is the most common
+        // format for PNG files. However, dynamically choosing the format will
+        // allow us support more image types.
         let inTexDes: MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: width, height: height, mipmapped: false)
         inTexDes.usage = .shaderRead
-        
-        let imageData = NSData(data: self.originalImage!.tiffRepresentation!)
+
         let inTexture = device.makeTexture(descriptor: inTexDes)!
         
         inTexture.replace(region: MTLRegion(origin: MTLOrigin(x: 0, y: 0, z: 0), size: MTLSize(width: inTexture.width, height: inTexture.height, depth: 1)), mipmapLevel: 0, withBytes: imageData.bytes, bytesPerRow: 4 * inTexDes.width)
         
+        
+        // Create output texture
+        // Must define .shaderWrite usage
         let outTexDes = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: width, height: height, mipmapped: false)
         outTexDes.usage = [.shaderRead, .shaderWrite]
         
         let outTexture = device.makeTexture(descriptor: outTexDes)!
         
-        let thredGroupSize = 32
         
+        // Run GPU code
+        let thredGroupSize = 32
+        let colorRemove = ColorRemoveModule()
         colorRemove[
             [
                 (inTexture.width + thredGroupSize - 1) / thredGroupSize,
@@ -98,6 +106,7 @@ struct ContentView: View {
         ](inTexture: inTexture, outTexture: outTexture)
         
 
+        // Cast output texture into CGImage then into NSImage
         let cgImage = getCGImage(from: outTexture, width: width, height: height)!
         self.convertedImage = NSImage(cgImage: cgImage, size: NSSize(width: width, height: height))
     }

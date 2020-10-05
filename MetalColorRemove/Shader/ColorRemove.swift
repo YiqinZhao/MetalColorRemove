@@ -13,6 +13,7 @@ class ColorRemoveModule : MetalComputeModule {
     }
     
     func callAsFunction(inTexture: MTLTexture, outTexture: MTLTexture) {
+        
         self.commandEncoder.setTexture(inTexture, index: 0)
         self.commandEncoder.setTexture(outTexture, index: 1)
 
