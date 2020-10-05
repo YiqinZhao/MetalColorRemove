@@ -14,6 +14,10 @@
 		70C35143252A6A01007BA4E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C35141252A6A01007BA4E8 /* Main.storyboard */; };
 		70C3514F252A6A01007BA4E8 /* MetalColorRemoveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C3514E252A6A01007BA4E8 /* MetalColorRemoveTests.swift */; };
 		70C3515A252A6A01007BA4E8 /* MetalColorRemoveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C35159252A6A01007BA4E8 /* MetalColorRemoveUITests.swift */; };
+		70C3516B252A7052007BA4E8 /* MetalModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C3516A252A7052007BA4E8 /* MetalModule.swift */; };
+		70C35170252A708C007BA4E8 /* ColorRemove.metal in Sources */ = {isa = PBXBuildFile; fileRef = 70C3516F252A708C007BA4E8 /* ColorRemove.metal */; };
+		70C35178252A723F007BA4E8 /* ColorRemove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C35177252A723F007BA4E8 /* ColorRemove.swift */; };
+		70C35184252A7C83007BA4E8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C35183252A7C82007BA4E8 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,10 @@
 		70C35155252A6A01007BA4E8 /* MetalColorRemoveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetalColorRemoveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		70C35159252A6A01007BA4E8 /* MetalColorRemoveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalColorRemoveUITests.swift; sourceTree = "<group>"; };
 		70C3515B252A6A01007BA4E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70C3516A252A7052007BA4E8 /* MetalModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalModule.swift; sourceTree = "<group>"; };
+		70C3516F252A708C007BA4E8 /* ColorRemove.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ColorRemove.metal; sourceTree = "<group>"; };
+		70C35177252A723F007BA4E8 /* ColorRemove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRemove.swift; sourceTree = "<group>"; };
+		70C35183252A7C82007BA4E8 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,7 @@
 		70C35137252A6A00007BA4E8 /* MetalColorRemove */ = {
 			isa = PBXGroup;
 			children = (
+				70C3517C252A7246007BA4E8 /* Shader */,
 				70C35138252A6A00007BA4E8 /* AppDelegate.swift */,
 				70C3513A252A6A00007BA4E8 /* ContentView.swift */,
 				70C3513C252A6A01007BA4E8 /* Assets.xcassets */,
@@ -105,6 +114,7 @@
 				70C35144252A6A01007BA4E8 /* Info.plist */,
 				70C35145252A6A01007BA4E8 /* MetalColorRemove.entitlements */,
 				70C3513E252A6A01007BA4E8 /* Preview Content */,
+				70C35183252A7C82007BA4E8 /* Helpers.swift */,
 			);
 			path = MetalColorRemove;
 			sourceTree = "<group>";
@@ -133,6 +143,16 @@
 				70C3515B252A6A01007BA4E8 /* Info.plist */,
 			);
 			path = MetalColorRemoveUITests;
+			sourceTree = "<group>";
+		};
+		70C3517C252A7246007BA4E8 /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				70C3516A252A7052007BA4E8 /* MetalModule.swift */,
+				70C35177252A723F007BA4E8 /* ColorRemove.swift */,
+				70C3516F252A708C007BA4E8 /* ColorRemove.metal */,
+			);
+			path = Shader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,8 +285,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70C3516B252A7052007BA4E8 /* MetalModule.swift in Sources */,
+				70C35184252A7C83007BA4E8 /* Helpers.swift in Sources */,
 				70C3513B252A6A00007BA4E8 /* ContentView.swift in Sources */,
 				70C35139252A6A00007BA4E8 /* AppDelegate.swift in Sources */,
+				70C35170252A708C007BA4E8 /* ColorRemove.metal in Sources */,
+				70C35178252A723F007BA4E8 /* ColorRemove.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
